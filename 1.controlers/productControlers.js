@@ -35,7 +35,7 @@ module.exports = {
         })
     },
     deleteProduct : (req,res)=>{
-        let sql = `delete from products where productId = ${req.params.id}`
+        let sql = `update products set productapproval = "3" where productId = ${req.body.productId}`
         db.query(sql, (err,result)=>{
             try {
                 if (err) throw err
@@ -44,5 +44,27 @@ module.exports = {
                 console.log(err)
             }
         })
-    } 
+    },
+    getApprovedProduct : (req,res)=>{
+        let sql = `select * from products where storename="${req.query.storename}" and productapproval = "1"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getUnapprovedProduct : (req,res)=>{
+        let sql = `select * from products where storename="${req.query.storename}" and productapproval = "0"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    }
 }
