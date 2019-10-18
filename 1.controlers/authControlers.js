@@ -23,6 +23,17 @@ module.exports = {
             }
         })
     },
+    checkUser : (req,res)=>{
+        let sql = `select email, username, cellphone from users where email = "${req.query.email}" or username = "${req.query.username}" or cellphone = "${req.query.cellphone}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
     addUser : (req,res)=>{
         let sql = `insert into users values (0,"${req.body.fullname}","${req.body.cellphone}",default,"${req.body.email}",default,"${req.body.gender}","${req.body.username}","${req.body.password}",default,default,default,default,default)`
         db.query(sql, (err,result)=>{
@@ -34,12 +45,23 @@ module.exports = {
             }
         })
     },
-    changePassword : (req,res)=>{
-        let sql = `update users set password = "${req.body.password}" where username = "${req.body.username}"`
+    getUserByEmail : (req,res)=>{
+        let sql = `select userId, email, gender, fullname from users where email = "${req.query.email}"`
         db.query(sql, (err,result)=>{
             try {
                 if (err) throw err
-                res.send("Your account password has been modified")
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    changePassword : (req,res)=>{
+        let sql = `update users set password = "${req.body.password}" where userId = "${req.body.userId}" and username = "${req.body.username}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
             } catch (err) {
                 console.log(err)
             }
@@ -50,7 +72,7 @@ module.exports = {
         db.query(sql, (err,result)=>{
             try {
                 if (err) throw err
-                res.send("Your account cellphone has been verified")
+                res.send(result)
             } catch (err) {
                 console.log(err)
             } 

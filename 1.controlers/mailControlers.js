@@ -51,7 +51,7 @@ module.exports = {
             to,
             subject : "Change your SimpleStore account password!",
             html : `<p>Greetings ${title} ${req.query.fullname},<br></br><br></br>
-                        Please click this <a href="http://localhost:3000/Forgotpasswordend/${req.query.username}" > link </a> to access the page to change your SimpleStore account password.<br></br>
+                        Please click this <a href="http://localhost:3000/Forgotpasswordend/${req.query.userId}" > link </a> to access the page to change your SimpleStore account password.<br></br>
                         Thank you.<br></br><br></br>
                         Best regards,<br></br>
                         SimpleStore team</p>`

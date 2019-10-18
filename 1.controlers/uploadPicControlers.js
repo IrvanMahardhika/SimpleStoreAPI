@@ -9,7 +9,7 @@ module.exports = {
             let sql = `update users set userpic = "${req.file.path}" where username = "${data.username}"`
             db.query(sql,(err,result)=>{
                 if (err) throw err
-                res.send("Success")
+                res.send(result)
             })
         } catch (error) {
             fs.unlinkSync(req.file.path)
@@ -21,7 +21,7 @@ module.exports = {
         db.query(sql, (err,result)=>{
             try {
                 if (err) throw err
-                res.send("Your userpic has been deleted")
+                res.send(result)
             } catch (err) {
                 console.log(err)
             }
@@ -33,7 +33,7 @@ module.exports = {
             let sql = `update products set productpic1 = "${req.file.path}" where productId = ${data.productId}`
             db.query(sql,(err,result)=>{
                 if (err) throw err
-                res.send("Success")
+                res.send(result)
             })
         } catch (error) {
             fs.unlinkSync(req.file.path)
@@ -46,7 +46,7 @@ module.exports = {
             let sql = `update products set productpic2 = "${req.file.path}" where productId = ${data.productId}`
             db.query(sql,(err,result)=>{
                 if (err) throw err
-                res.send("Success")
+                res.send(result)
             })
         } catch (error) {
             fs.unlinkSync(req.file.path)
@@ -59,7 +59,7 @@ module.exports = {
             let sql = `update products set productpic3 = "${req.file.path}" where productId = ${data.productId}`
             db.query(sql,(err,result)=>{
                 if (err) throw err
-                res.send("Success")
+                res.send(result)
             })
         } catch (error) {
             fs.unlinkSync(req.file.path)
