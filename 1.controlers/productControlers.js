@@ -13,7 +13,7 @@ module.exports = {
         })
     },
     addProduct : (req,res)=>{
-        let sql = `insert into products values (0,"${req.body.storename}",default,default,default,default,default,default,default,default,default,default,"${req.body.addeddate}",default)`
+        let sql = `insert into products values (0,"${req.body.storename}",default,default,default,default,default,default,default,default,default,default,default,default,default,"${req.body.addeddate}",default)`
         db.query(sql, (err,result)=>{
             try {
                 if (err) throw err
@@ -24,7 +24,7 @@ module.exports = {
         })
     },
     addProductFinal : (req,res)=>{   
-        let sql = `update products set category = "${req.body.category}", brand = "${req.body.brand}", inventory = ${req.body.inventory}, measurement = "${req.body.measurement}", name = "${req.body.name}", description = "${req.body.description}", price = ${req.body.price} where productId = ${req.body.productId}`
+        let sql = `update products set category = "${req.body.category}", brand = "${req.body.brand}", inventory = ${req.body.inventory}, measurement = "${req.body.measurement}", name = "${req.body.name}", color = "${req.body.color}", weight = "${req.body.weight}", dimension = "${req.body.dimension}", description = "${req.body.description}", price = ${req.body.price} where productId = ${req.body.productId}`
         db.query(sql,(err,result)=>{
             try {
                 if (err) throw err
