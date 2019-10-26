@@ -66,5 +66,97 @@ module.exports = {
                 console.log(err)
             }
         })
+    },
+    addMarkdown : (req,res)=>{
+        let sql = `insert into markdowns values (0,"${req.body.markdownname}","${req.body.start}","${req.body.end}",default,default,default)`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    addMarkDownFinal : (req,res)=>{
+        let sql = `update markdowns set productId = "${req.body.productId}",`
+        if (req.body.discpercent) {sql+=` discpercent = ${req.body.discpercent},`}
+        if (req.body.discvalue) {sql+=` discvalue = ${req.body.discvalue},`}
+        sql = sql.slice(0,-1)
+        sql+=` where markdownId = ${req.body.markdownId}`
+        db.query(sql,(err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getMarkdown1 : (req,res)=>{
+        let sql = `select markdownId, start, end, discpercent, discvalue, category, brand, inventory, measurement, name, productpic1, price from markdowns join products on markdowns.productId = products.productId where markdownname="Markdown 1" and storename="${req.query.storename}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getMarkdown2 : (req,res)=>{
+        let sql = `select markdownId, start, end, discpercent, discvalue, category, brand, inventory, measurement, name, productpic1, price from markdowns join products on markdowns.productId = products.productId where markdownname="Markdown 2" and storename="${req.query.storename}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getMarkdown3 : (req,res)=>{
+        let sql = `select markdownId, start, end, discpercent, discvalue, category, brand, inventory, measurement, name, productpic1, price from markdowns join products on markdowns.productId = products.productId where markdownname="Markdown 3" and storename="${req.query.storename}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getMarkdown4 : (req,res)=>{
+        let sql = `select markdownId, start, end, discpercent, discvalue, category, brand, inventory, measurement, name, productpic1, price from markdowns join products on markdowns.productId = products.productId where markdownname="Markdown 4" and storename="${req.query.storename}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getMarkdown5 : (req,res)=>{
+        let sql = `select markdownId, start, end, discpercent, discvalue, category, brand, inventory, measurement, name, productpic1, price from markdowns join products on markdowns.productId = products.productId where markdownname="Markdown 5" and storename="${req.query.storename}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    deleteMarkdown : (req,res)=>{
+        let sql = `delete from markdowns where markdownId = ${req.params.id}`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
     }
 }

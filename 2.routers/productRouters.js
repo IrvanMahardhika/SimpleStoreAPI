@@ -9,6 +9,13 @@ router.put("/addproductfinal", productControler.addProductFinal)
 router.put("/deleteproduct", productControler.deleteProduct)
 router.get("/getapprovedproduct", verifyToken, productControler.getApprovedProduct)
 router.get("/getunapprovedproduct", verifyToken, productControler.getUnapprovedProduct)
-
+router.post("/addmarkdown", productControler.addMarkdown)
+router.put("/addmarkdownfinal", productControler.addMarkDownFinal)
+router.get("/getmarkdown1", verifyToken, productControler.getMarkdown1)
+router.get("/getmarkdown2", verifyToken, productControler.getMarkdown2)
+router.get("/getmarkdown3", verifyToken, productControler.getMarkdown3)
+router.get("/getmarkdown4", verifyToken, productControler.getMarkdown4)
+router.get("/getmarkdown5", verifyToken, productControler.getMarkdown5)
+router.delete("/deletemarkdown/:id", productControler.deleteMarkdown)
 
 module.exports = router
