@@ -158,5 +158,16 @@ module.exports = {
                 console.log(err)
             }
         })
+    },
+    checkMarkdown : (req,res)=>{
+        let sql = `select markdownname, end, brand, name from markdowns join products on markdowns.productId = products.productId where storename="${req.query.storename}" and markdowns.productId="${req.query.productId}" and end>="${req.query.start}"`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
     }
 }
