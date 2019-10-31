@@ -14,5 +14,6 @@ router.put("/addmarkdownfinal", productControler.addMarkDownFinal)
 router.get("/getmarkdown", verifyToken, productControler.getMarkdown)
 router.delete("/deletemarkdown/:id", productControler.deleteMarkdown)
 router.get("/checkmarkdown", verifyToken, productControler.checkMarkdown)
+router.get("/getnewproducts", productControler.getNewProducts)
 
 module.exports = router

@@ -116,7 +116,18 @@ module.exports = {
         })
     },
     checkMarkdown : (req,res)=>{
-        let sql = `select markdownname, end, brand, name from markdowns join products on markdowns.productId = products.productId where storename="${req.query.storename}" and markdowns.productId="${req.query.productId}" and end>="${req.query.start}"`
+        let sql = `select markdownname, start, end, brand, name from markdowns join products on markdowns.productId = products.productId where storename="${req.query.storename}" and markdowns.productId="${req.query.productId}" and "${req.query.start}"<=end and "${req.query.end}">=start`
+        db.query(sql, (err,result)=>{
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getNewProducts : (req,res)=>{
+        let sql = `select products.productId, brand, name, price, productpic1, stores.storename, store_cityregency, start, end, discpercent, discvalue from products join stores on stores.storename = products.storename left join markdowns on products.productId = markdowns.productId where productapproval = "1" order by products.productId desc limit 15`
         db.query(sql, (err,result)=>{
             try {
                 if (err) throw err
