@@ -1,9 +1,9 @@
 const db = require("../4.database/index")
 
 module.exports = {
-    getLogin : (req,res)=>{
+    getLogin: (req, res) => {
         let sql = `select * from users where password ="${req.query.password}" and (username = "${req.query.username}" or email = "${req.query.email}" or cellphone = "${req.query.cellphone}")`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -12,9 +12,9 @@ module.exports = {
             }
         })
     },
-    getData : (req,res)=>{
+    getData: (req, res) => {
         let sql = `select * from users where userId = ${req.query.userId}`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -23,9 +23,9 @@ module.exports = {
             }
         })
     },
-    checkUser : (req,res)=>{
+    checkUser: (req, res) => {
         let sql = `select email, username, cellphone from users where email = "${req.query.email}" or username = "${req.query.username}" or cellphone = "${req.query.cellphone}"`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -34,9 +34,9 @@ module.exports = {
             }
         })
     },
-    addUser : (req,res)=>{
+    addUser: (req, res) => {
         let sql = `insert into users values (0,"${req.body.fullname}","${req.body.cellphone}",default,"${req.body.email}",default,"${req.body.gender}","${req.body.username}","${req.body.password}",default,default,default,default,default)`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -45,9 +45,9 @@ module.exports = {
             }
         })
     },
-    getUserByEmail : (req,res)=>{
+    getUserByEmail: (req, res) => {
         let sql = `select userId, email, gender, fullname from users where email = "${req.query.email}"`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -56,9 +56,9 @@ module.exports = {
             }
         })
     },
-    changePassword : (req,res)=>{
+    changePassword: (req, res) => {
         let sql = `update users set password = "${req.body.password}" where userId = "${req.body.userId}" and username = "${req.body.username}"`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -67,20 +67,20 @@ module.exports = {
             }
         })
     },
-    verifyCellphone : (req,res)=>{
+    verifyCellphone: (req, res) => {
         let sql = `update users set cellphoneverified = 1 where username = "${req.body.username}"`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
             } catch (err) {
                 console.log(err)
-            } 
+            }
         })
     },
-    addUserAddress : (req,res)=>{
+    addUserAddress: (req, res) => {
         let sql = `insert into useraddress values (0,${req.body.userId},"${req.body.username}","${req.body.addressname}","${req.body.address}","${req.body.district}","${req.body.cityregency}","${req.body.province}","${req.body.postalcode}")`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -89,9 +89,9 @@ module.exports = {
             }
         })
     },
-    getAddress : (req,res)=>{
+    getAddress: (req, res) => {
         let sql = `select * from useraddress where username = "${req.query.username}"`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -100,9 +100,9 @@ module.exports = {
             }
         })
     },
-    deleteAddress : (req,res)=>{
+    deleteAddress: (req, res) => {
         let sql = `delete from useraddress where addressId = ${req.params.id}`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -111,20 +111,20 @@ module.exports = {
             }
         })
     },
-    updateProfile : (req,res)=>{
+    updateProfile: (req, res) => {
         let sql = `update users set `
-        if (req.body.fullname) {sql+=`fullname = "${req.body.fullname}",`}
-        if (req.body.birthdate) {sql+=`birthdate = ${req.body.birthdate},`}
-        if (req.body.sex) {sql+=`gender = "${req.body.sex}",`}
-        sql = sql.slice(0,-1)
-        sql+=` where userId = "${req.body.userId}"`
-        db.query(sql, (err,result)=>{
+        if (req.body.fullname) { sql += `fullname = "${req.body.fullname}",` }
+        if (req.body.birthdate) { sql += `birthdate = ${req.body.birthdate},` }
+        if (req.body.sex) { sql += `gender = "${req.body.sex}",` }
+        sql = sql.slice(0, -1)
+        sql += ` where userId = "${req.body.userId}"`
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
             } catch (err) {
                 console.log(err)
-            } 
+            }
         })
     }
 }

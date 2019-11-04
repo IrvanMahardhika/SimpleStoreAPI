@@ -3,11 +3,11 @@ const fs = require("fs")
 
 
 module.exports = {
-    uploadUserPic : (req,res)=>{
+    uploadUserPic: (req, res) => {
         try {
             let data = JSON.parse(req.body.data)
             let sql = `update users set userpic = "${req.file.path}" where username = "${data.username}"`
-            db.query(sql,(err,result)=>{
+            db.query(sql, (err, result) => {
                 if (err) throw err
                 res.send(result)
             })
@@ -16,9 +16,9 @@ module.exports = {
             console.log(error)
         }
     },
-    deleteUserPic : (req,res)=>{
+    deleteUserPic: (req, res) => {
         let sql = `update users set userpic = default where username = "${req.body.username}"`
-        db.query(sql, (err,result)=>{
+        db.query(sql, (err, result) => {
             try {
                 if (err) throw err
                 res.send(result)
@@ -27,11 +27,11 @@ module.exports = {
             }
         })
     },
-    addProductPic1 : (req,res)=>{
+    addProductPic1: (req, res) => {
         try {
             let data = JSON.parse(req.body.data)
             let sql = `update products set productpic1 = "${req.file.path}" where productId = ${data.productId}`
-            db.query(sql,(err,result)=>{
+            db.query(sql, (err, result) => {
                 if (err) throw err
                 res.send(result)
             })
@@ -40,11 +40,11 @@ module.exports = {
             console.log(error)
         }
     },
-    addProductPic2 : (req,res)=>{
+    addProductPic2: (req, res) => {
         try {
             let data = JSON.parse(req.body.data)
             let sql = `update products set productpic2 = "${req.file.path}" where productId = ${data.productId}`
-            db.query(sql,(err,result)=>{
+            db.query(sql, (err, result) => {
                 if (err) throw err
                 res.send(result)
             })
@@ -53,11 +53,11 @@ module.exports = {
             console.log(error)
         }
     },
-    addProductPic3 : (req,res)=>{
+    addProductPic3: (req, res) => {
         try {
             let data = JSON.parse(req.body.data)
             let sql = `update products set productpic3 = "${req.file.path}" where productId = ${data.productId}`
-            db.query(sql,(err,result)=>{
+            db.query(sql, (err, result) => {
                 if (err) throw err
                 res.send(result)
             })

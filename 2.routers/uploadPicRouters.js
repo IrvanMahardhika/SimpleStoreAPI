@@ -1,7 +1,7 @@
 var express = require("express")
 var router = express.Router()
-const {uploadPicControler} = require("../1.controlers/index")
-const {uploaduserPic,uploadproductPic} = require("../3.helpers/multer")
+const { uploadPicControler } = require("../1.controlers/index")
+const { uploaduserPic, uploadproductPic } = require("../3.helpers/multer")
 
 router.put("/uploaduserpic", uploaduserPic, uploadPicControler.uploadUserPic)
 router.put("/deleteuserpic", uploadPicControler.deleteUserPic)
