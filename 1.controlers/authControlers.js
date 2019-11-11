@@ -126,5 +126,43 @@ module.exports = {
                 console.log(err)
             }
         })
+    },
+    addUserPayment: (req, res) => {
+        let sql
+        if (req.body.expiry && req.body.securitycode) {
+            sql = `insert into userpayment values (0,${req.body.userId},"${req.body.type}","${req.body.bank}","${req.body.name}","${req.body.number}","${req.body.expiry}",${req.body.securitycode})`
+        } else {
+            sql = `insert into userpayment values (0,${req.body.userId},"${req.body.type}","${req.body.bank}","${req.body.name}","${req.body.number}",default,default)`
+        }
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getPayment: (req, res) => {
+        let sql = `select * from userpayment where userId = "${req.query.userId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    deletePayment: (req, res) => {
+        let sql = `delete from userpayment where paymentId = ${req.params.id}`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
     }
 }

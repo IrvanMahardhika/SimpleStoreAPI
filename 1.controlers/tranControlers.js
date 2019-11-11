@@ -2,7 +2,7 @@ const db = require("../4.database/index")
 
 module.exports = {
     getCart: (req, res) => {
-        let sql = `select cartId, userId, cart.productId, qty, note, category, brand, name, price, productpic1, start, end, discpercent, discvalue, inventory, measurement from cart join products on cart.productId = products.productId left join markdowns on markdowns.productId = products.productId where userId=${req.query.userId}`
+        let sql = `select cartId, cart.userId, cart.productId, qty, note, category, brand, name, price, productpic1, start, end, discpercent, discvalue, inventory, measurement, weight, stores.storename, store_cityregency from cart join products on cart.productId=products.productId join stores on stores.storename = products.storename left join markdowns on markdowns.productId = products.productId where cart.userId = ${req.query.userId}`
         db.query(sql, (err, result) => {
             try {
                 if (err) throw err

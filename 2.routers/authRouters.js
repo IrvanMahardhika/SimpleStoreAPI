@@ -15,6 +15,9 @@ router.post("/adduseraddress", authControler.addUserAddress)
 router.get("/getaddress", verifyToken, authControler.getAddress)
 router.delete("/deleteaddress/:id", authControler.deleteAddress)
 router.put("/updateprofile", authControler.updateProfile)
+router.post("/adduserpayment", authControler.addUserPayment)
+router.get("/getpayment", verifyToken, authControler.getPayment)
+router.delete("/deletepayment/:id", authControler.deletePayment)
 
 
 
