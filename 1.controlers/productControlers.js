@@ -138,7 +138,18 @@ module.exports = {
         })
     },
     getProductDetail: (req, res) => {
-        let sql = `select * from products join stores on stores.storename = products.storename left join markdowns on products.productId = markdowns.productId where products.productId="${req.query.productId}"`
+        let sql = `select * from products join checkout on products.productId = checkout.productId join stores on stores.storename = products.storename left join markdowns on products.productId = markdowns.productId where products.productId = "${req.query.productId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    changeProductInventory: (req, res) => {
+        let sql = `update products set inventory = ${req.body.inventory} where productId = ${req.body.productId}`
         db.query(sql, (err, result) => {
             try {
                 if (err) throw err

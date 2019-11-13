@@ -15,4 +15,11 @@ router.get("/checkcartnonlogin", tranControler.checkCartNonLogin)
 router.put("/updatecartnonlogin", tranControler.updateCartNonLogin)
 router.delete("/deletecartnonlogin/:id", tranControler.deleteCartNonLogin)
 
+router.get("/getcheckoutqty", tranControler.getCheckoutQty)
+router.put("/changecheckoutqty", tranControler.changeCheckoutQty)
+
+router.post("/addtrandetail", tranControler.addTranDetail)
+router.post("/addtranpayment", tranControler.addTranPayment)
+router.post("/addtrandelivery", tranControler.addTranDelivery)
+
 module.exports = router
