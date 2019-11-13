@@ -22,4 +22,6 @@ router.post("/addtrandetail", tranControler.addTranDetail)
 router.post("/addtranpayment", tranControler.addTranPayment)
 router.post("/addtrandelivery", tranControler.addTranDelivery)
 
+router.get("/getuserorder", verifyToken, tranControler.getUserOrder)
+
 module.exports = router

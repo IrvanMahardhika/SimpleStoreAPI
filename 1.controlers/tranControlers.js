@@ -161,9 +161,9 @@ module.exports = {
     addTranPayment: (req, res) => {
         let sql
         if (req.body.bankdest) {
-            sql = `insert into tranpayment values (0,"${req.body.trandate}","${req.body.userId}","${req.body.email}","${req.body.type}",default,"${req.body.bankdest}",default,default,default,default,default,${req.body.productcost},${req.body.deliverycost},${req.body.totalcost},"${req.body.status}")`
+            sql = `insert into tranpayment values (0,"${req.body.trandate}","${req.body.userId}","${req.body.email}","${req.body.type}",default,"${req.body.bankdest}",default,default,default,default,default,default,default,${req.body.productcost},${req.body.deliverycost},${req.body.totalcost},"${req.body.status}")`
         } else {
-            sql = `insert into tranpayment values (0,"${req.body.trandate}","${req.body.userId}","${req.body.email}","${req.body.type}","${req.body.bankori}",default,"${req.body.name}","${req.body.number}","${req.body.expiry}","${req.body.securitycode}",default,${req.body.productcost},${req.body.deliverycost},${req.body.totalcost},"${req.body.status}")`
+            sql = `insert into tranpayment values (0,"${req.body.trandate}","${req.body.userId}","${req.body.email}","${req.body.type}","${req.body.bankori}",default,"${req.body.name}","${req.body.number}","${req.body.expiry}","${req.body.securitycode}",default,default,"${req.body.trandate}",${req.body.productcost},${req.body.deliverycost},${req.body.totalcost},"${req.body.status}")`
         }
         db.query(sql, (err, result) => {
             try {
@@ -175,7 +175,19 @@ module.exports = {
         })
     },
     addTranDelivery: (req, res) => {
-        let sql = `insert into trandelivery values (0,"${req.body.dest_address}","${req.body.dest_district}","${req.body.dest_cityregency}","${req.body.dest_province}","${req.body.dest_postalcode}",default)`
+        let sql = `insert into trandelivery values (0,"${req.body.recipientname}","${req.body.dest_address}","${req.body.dest_district}","${req.body.dest_cityregency}","${req.body.dest_province}","${req.body.dest_postalcode}",default,default,default,default)`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+
+    getUserOrder: (req, res) => {
+        let sql = `select * from trandetail join products on trandetail.productId = products.productId join trandelivery on trandetail.trandeliveryId = trandelivery.trandeliveryId join tranpayment on trandetail.tranpaymentId = tranpayment.tranpaymentId where status = "payment done, waiting for the product(s) to be delivered" and storename = "${req.query.storename}"`
         db.query(sql, (err, result) => {
             try {
                 if (err) throw err
@@ -185,5 +197,5 @@ module.exports = {
             }
         })
     }
-
+    
 }
