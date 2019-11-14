@@ -15,6 +15,7 @@ router.get("/getmarkdown", verifyToken, productControler.getMarkdown)
 router.delete("/deletemarkdown/:id", productControler.deleteMarkdown)
 router.get("/checkmarkdown", verifyToken, productControler.checkMarkdown)
 router.get("/getnewproducts", productControler.getNewProducts)
+router.get("/getbestsellingproducts", productControler.getBestSellingProducts)
 router.get("/getproductdetail", productControler.getProductDetail)
 router.put("/changeproductinventory", productControler.changeProductInventory)
 

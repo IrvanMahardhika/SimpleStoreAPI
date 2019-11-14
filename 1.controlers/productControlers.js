@@ -13,7 +13,7 @@ module.exports = {
         })
     },
     addProduct: (req, res) => {
-        let sql = `insert into products values (0,"${req.body.storename}",default,default,default,default,default,default,default,default,default,default,default,default,default,"${req.body.addeddate}",default)`
+        let sql = `insert into products values (0,"${req.body.storename}",default,default,default,default,default,default,default,default,default,default,default,default,default,"${req.body.addeddate}",default,default)`
         db.query(sql, (err, result) => {
             try {
                 if (err) throw err
@@ -127,7 +127,18 @@ module.exports = {
         })
     },
     getNewProducts: (req, res) => {
-        let sql = `select products.productId, brand, name, price, productpic1, stores.storename, store_cityregency, start, end, discpercent, discvalue from products join stores on stores.storename = products.storename left join markdowns on products.productId = markdowns.productId where productapproval = "1" order by products.productId desc limit 15`
+        let sql = `select products.productId, brand, name, price, productpic1, stores.storename, store_cityregency, start, end, discpercent, discvalue, sales, measurement from products join stores on stores.storename = products.storename left join markdowns on products.productId = markdowns.productId where productapproval = "1" and inventory > 0 order by products.productId desc limit 15`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    getBestSellingProducts: (req, res) => {
+        let sql = `select products.productId, brand, name, price, productpic1, stores.storename, store_cityregency, start, end, discpercent, discvalue, sales, measurement from products join stores on stores.storename = products.storename left join markdowns on products.productId = markdowns.productId where productapproval = "1" and inventory > 0 order by sales desc limit 15`
         db.query(sql, (err, result) => {
             try {
                 if (err) throw err
@@ -149,7 +160,7 @@ module.exports = {
         })
     },
     changeProductInventory: (req, res) => {
-        let sql = `update products set inventory = ${req.body.inventory} where productId = ${req.body.productId}`
+        let sql = `update products set inventory = ${req.body.inventory}, sales = ${req.body.sales} where productId = ${req.body.productId}`
         db.query(sql, (err, result) => {
             try {
                 if (err) throw err

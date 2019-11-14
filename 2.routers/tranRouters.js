@@ -23,5 +23,10 @@ router.post("/addtranpayment", tranControler.addTranPayment)
 router.post("/addtrandelivery", tranControler.addTranDelivery)
 
 router.get("/getuserorder", verifyToken, tranControler.getUserOrder)
+router.get("/getstoretransaction", verifyToken, tranControler.getStoreTransaction)
+router.get("/getreceivingevidencepic", verifyToken, tranControler.getReceivingEvidencePic)
+
+router.put("/updatejnereceipt", tranControler.updateJNEreceipt)
+router.put("/updatetranstatus", tranControler.updateTranStatus)
 
 module.exports = router
