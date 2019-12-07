@@ -25,8 +25,15 @@ router.post("/addtrandelivery", tranControler.addTranDelivery)
 router.get("/getuserorder", verifyToken, tranControler.getUserOrder)
 router.get("/getstoretransaction", verifyToken, tranControler.getStoreTransaction)
 router.get("/getreceivingevidencepic", verifyToken, tranControler.getReceivingEvidencePic)
-
 router.put("/updatejnereceipt", tranControler.updateJNEreceipt)
 router.put("/updatetranstatus", tranControler.updateTranStatus)
+router.get("/gettransferevidencepic", tranControler.getTransferEvidencePic)
+
+router.get("/gettransaction", tranControler.getTransaction)
+
+router.get("/getadmintransaction", verifyToken, tranControler.getAdminTransaction)
+router.put("/updatepaymentstatus", tranControler.updatePaymentStatus)
+
+router.put("/updatecompleteddate", tranControler.updateCompletedDate)
 
 module.exports = router

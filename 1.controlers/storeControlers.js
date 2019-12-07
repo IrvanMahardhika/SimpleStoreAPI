@@ -33,5 +33,39 @@ module.exports = {
                 console.log(err);
             }
         })
+    },
+
+    getUnapprovedStores: (req, res) => {
+        let sql = `select * from stores join users on stores.storename = users.storename where stores.storeapproval = 0`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err);
+            }
+        })
+    },
+    approveStoreInStores: (req, res) => {
+        let sql = `update stores set storeapproval = 1 where storeId = "${req.body.storeId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    approveStoreInUsers: (req, res) => {
+        let sql = `update users set storeapproval = 1 where userId = "${req.body.userId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
     }
 }

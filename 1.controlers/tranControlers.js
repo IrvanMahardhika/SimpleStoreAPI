@@ -219,7 +219,6 @@ module.exports = {
             }
         })
     },
-
     updateJNEreceipt: (req, res) => {
         let sql = `update trandelivery set jnereceipt = "${req.body.jnereceipt}", jnereceiptdate = "${req.body.jnereceiptdate}" where trandeliveryId = "${req.body.trandeliveryId}"`
         db.query(sql, (err, result) => {
@@ -241,6 +240,66 @@ module.exports = {
                 console.log(err)
             }
         })
+    },
+    getTransferEvidencePic: (req, res) => {
+        let sql = `select transferpic from tranpayment where tranpaymentId = "${req.query.tranpaymentId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    
+
+    getTransaction: (req, res) => {
+        let sql = `select * from trandetail join products on trandetail.productId = products.productId join trandelivery on trandetail.trandeliveryId = trandelivery.trandeliveryId join tranpayment on trandetail.tranpaymentId = tranpayment.tranpaymentId where trandelivery.trandeliveryid = ${req.query.trandeliveryid}`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+
+    getAdminTransaction: (req, res) => {
+        let sql = `select * from trandetail join products on trandetail.productId = products.productId join trandelivery on trandetail.trandeliveryId = trandelivery.trandeliveryId join tranpayment on trandetail.tranpaymentId = tranpayment.tranpaymentId where status in ("payment done claim, waiting for admin approval", "payment done, waiting for the product(s) to be delivered", "received claim, waiting for admin approval") order by trandelivery.trandeliveryid`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    updatePaymentStatus: (req, res) => {
+        let sql = `update tranpayment set status = "${req.body.status}", tranconfirmdate = "${req.body.tranconfirmdate}" where tranpaymentId = "${req.body.tranpaymentId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+
+    updateCompletedDate: (req, res) => {
+        let sql = `update trandelivery set completeddate = "${req.body.completeddate}" where trandeliveryId = "${req.body.trandeliveryId}"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
     }
+
     
 }

@@ -5,5 +5,6 @@ const { mailControler } = require("../1.controlers/index")
 router.get("/sendverifyemail", mailControler.sendVerifyEmail)
 router.get("/verifyemail", mailControler.verifyEmail)
 router.get("/sendlinkchangepasswordemail", mailControler.sendLinkChangePasswordEmail)
+router.get("/sendinvoiceemail", mailControler.sendInvoiceEmail)
 
 module.exports = router

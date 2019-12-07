@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer")
 const db = require("../4.database/index")
+var { pdfcreate } = require("../3.helpers/html_pdf")
+const fs = require("fs")
 
 let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -64,5 +66,53 @@ module.exports = {
         } else {
             res.send("Email empty!")
         }
+    },
+    sendInvoiceEmail: (req, res) => {
+        let options = {
+            format: "A4",
+            orientation: "landscape",
+            border: {
+                top: "0.5in",
+                left: "0.15in",
+                right: "0.15in",
+                bottom: "0.25in"
+            }
+        }
+        let replacements = {
+            transactionId: req.query.trandeliveryId,
+            storename: req.query.storename,
+            username: req.query.fullname,
+            address: req.query.address,
+            district: req.query.district,
+            cityregency: req.query.cityregency,
+            province: req.query.province,
+            postalcode: req.query.postalcode,
+            productcost: req.query.productcost,
+            deliverycost: req.query.deliverycost,
+            totalcost: req.query.totalcost,
+            date: req.query.date
+        }
+        let to = req.query.email
+        pdfcreate("./5.pdftemplates/invoice.html", replacements, options, (stream) => {
+            transporter.sendMail({
+                from: "SimpleStore <simplestore@gmail.com>",
+                to,
+                subject: `Invoice for Transaction ${req.query.trandeliveryId}`,
+                html: `<p>Greetings Mr/Mrs ${req.query.fullname},<br></br><br></br>
+                            This is invoice for transaction id ${req.query.trandeliveryId}.<br></br>
+                            Thank you for shopping @SimpleStore.<br></br><br></br>
+                            Best regards,<br></br>
+                            SimpleStore team</p>`,
+                attachments: [
+                    {
+                        filename: `Invoice for  transaction ${req.query.trandeliveryId}.pdf`,
+                        content: fs.createReadStream(stream.path)
+                    }
+                ]
+            })
+        })
+
+        res.send("Test email attachment done")
     }
+
 }

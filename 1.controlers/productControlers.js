@@ -169,5 +169,38 @@ module.exports = {
                 console.log(err)
             }
         })
+    },
+    getUnapprovedProductForApproval: (req, res) => {
+        let sql = `select * from products where productapproval = "0"`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    addProductIntoCheckout: (req, res) => {
+        let sql = `insert into checkout values (${req.body.productId},0)`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    },
+    approveProduct: (req, res) => {
+        let sql = `update products set productapproval = 1 where productId = ${req.body.productId}`
+        db.query(sql, (err, result) => {
+            try {
+                if (err) throw err
+                res.send(result)
+            } catch (err) {
+                console.log(err)
+            }
+        })
     }
 }

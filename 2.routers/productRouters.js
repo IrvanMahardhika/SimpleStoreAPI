@@ -18,5 +18,8 @@ router.get("/getnewproducts", productControler.getNewProducts)
 router.get("/getbestsellingproducts", productControler.getBestSellingProducts)
 router.get("/getproductdetail", productControler.getProductDetail)
 router.put("/changeproductinventory", productControler.changeProductInventory)
+router.get("/getunapprovedproductforapproval", verifyToken, productControler.getUnapprovedProductForApproval)
+router.post("/addproductintocheckout", productControler.addProductIntoCheckout)
+router.put("/approveproduct", productControler.approveProduct)
 
 module.exports = router

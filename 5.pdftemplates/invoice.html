@@ -1,0 +1,40 @@
+<html>
+
+<body>
+    <center>
+        <h1>INVOICE</h1>
+    </center>
+    <p>
+        Transaction Id : {{transactionId}}
+        <br></br>
+        Transaction date : {{date}}
+        <br></br>
+        Seller : {{storename}}
+        <br></br>
+        Buyer : {{username}}
+        <br></br>
+        Address :
+        <br></br>
+        {{address}} {{district}}
+        <br></br>
+        {{cityregency}} {{province}} {{postalcode}}
+    </p>
+    <center>
+        <table>
+            <thead>
+                <td>Product Cost</td>
+                <td>Delivery Cost</td>
+                <td>Total Cost</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{productcost}}</td>
+                    <td>{{deliverycost}}</td>
+                    <td>{{totalcost}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+</body>
+
+</html>

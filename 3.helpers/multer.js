@@ -42,8 +42,23 @@ let uploadReceivingEvidencePic = multer({
     storage: multerStorageConfig3
 })
 
+let multerStorageConfig4 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./images/banktransferpics")
+    },
+    filename: (req, file, cb) => {
+        let d = new Date()
+        cb(null, `TRN_${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}_${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}.${file.mimetype.split("/")[1]}`)
+    }
+})
+
+let uploadTransferEvidencePic = multer({
+    storage: multerStorageConfig4
+})
+
 module.exports = {
     uploaduserPic: uploadUserPic.single("userPic"),
     uploadproductPic: uploadProductPic.single("productPic"),
-    uploadReceivingEvidencePic: uploadReceivingEvidencePic.single("receivingevidencePic")
+    uploadReceivingEvidencePic: uploadReceivingEvidencePic.single("receivingevidencePic"),
+    uploadTransferEvidencePic: uploadTransferEvidencePic.single("transferevidencePic")
 }

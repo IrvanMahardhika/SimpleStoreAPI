@@ -79,5 +79,18 @@ module.exports = {
             fs.unlinkSync(req.file.path)
             console.log(error)
         }
+    },
+    addTransferEvidencePic: (req, res) => {
+        try {
+            let data = JSON.parse(req.body.data)
+            let sql = `update tranpayment set transferpic = "${req.file.path}", uploadtransferdate = "${data.uploadtransferdate}" where tranpaymentId = "${data.tranpaymentId}"`
+            db.query(sql, (err, result) => {
+                if (err) throw err
+                res.send(result)
+            })
+        } catch (error) {
+            fs.unlinkSync(req.file.path)
+            console.log(error)
+        }
     }
 }
